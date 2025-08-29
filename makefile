@@ -10,9 +10,10 @@ CAP5_DIR = $(SRC_DIR)/cap5
 CC = gcc
 CXX = g++
 
-
 #make para todo
 all: cap1 cap2  cap3 cap4 cap5
+
+
 # Compilar cap1------------------------------------------------------------------------
 
 cap1: $(CAP1_DIR)/listing1-1.c $(CAP1_DIR)/listing1-2.cpp
@@ -67,8 +68,6 @@ $(BIN_DIR)/cap3:
 	mkdir -p $(BIN_DIR)/cap3
 
 
-
-
 #Compilar el cap4----------------------------------------------------------------------------------------
 
 CAP4_SRCS_C := $(wildcard $(CAP4_DIR)/listing4-*.c)
@@ -118,27 +117,35 @@ $(BIN_DIR)/cap5/%: $(CAP5_DIR)/%.c | $(BIN_DIR)/cap5
 clean-cap5:
 	rm -f $(BIN_DIR)/cap5/*
 
+
 #limpiar todo----------------------------------------------------------------
 
 clean: 
 	rm -rf $(BIN_DIR)/*
+
 #compilar cada listing uno por uno----------------------------------------
 #cap1--------------------------------------------------------
 # Crear carpeta bin/cap1 si no existe
 $(BIN_DIR)/cap1:
-mkdir -p $(BIN_DIR)/cap1
+	mkdir -p $(BIN_DIR)/cap1
 
 # Compilar el ejecutable cap1/reciprocal
 $(BIN_DIR)/cap1/reciprocal: $(CAP1_DIR)/listing1-1.c $(CAP1_DIR)/listing1-2.cpp | $(BIN_DIR)/cap1
 	$(CXX) -o $@ $^
 #target principal
 listing1-1: $(BIN_DIR)/cap1/reciprocal
+#cap2---------------------------------------------------------------
+listing2-8: $(BIN_DIR)/cap2/listing2-8
+listing2-9: $(BIN_DIR)/cap2/listing2-9
+
+#los que no dan kilombo en el cap2
+$(foreach f,$(CAP2_SRCS_NORMAL),$(eval $(notdir $(basename $(f))): $(BIN_DIR)/cap2/$(notdir $(basename $(f)))) )
 #cap3-------------------------------------------------------------
 $(foreach f,$(CAP3_SRCS),$(eval $(notdir $(basename $(f))): $(BIN_DIR)/cap3/$(notdir $(basename $(f)))))
 #cap4------------------------------------------------------------
-#Caso usual para compilar los archivos .c
+#Caso usual con los listings .c
 $(foreach f,$(CAP4_SRCS_C),$(eval $(notdir $(basename $(f))): $(BIN_DIR)/cap4/$(notdir $(basename $(f)))))
-#Caso especial para el listing4-9, C++
+#Caso especial para el listing4-9 C++
 listing4-9: $(BIN_DIR)/cap4/listing4-9
 #cap5-------------------------------------------------------------
 $(foreach f,$(CAP5_SRCS),$(eval $(notdir $(basename $(f))): $(BIN_DIR)/cap5/$(notdir $(basename $(f)))))
