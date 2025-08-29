@@ -135,6 +135,10 @@ $(BIN_DIR)/cap1/reciprocal: $(CAP1_DIR)/listing1-1.c $(CAP1_DIR)/listing1-2.cpp 
 listing1-1: $(BIN_DIR)/cap1/reciprocal
 #cap3-------------------------------------------------------------
 $(foreach f,$(CAP3_SRCS),$(eval $(notdir $(basename $(f))): $(BIN_DIR)/cap3/$(notdir $(basename $(f)))))
-
+#cap4------------------------------------------------------------
+#Caso usual para compilar los archivos .c
+$(foreach f,$(CAP4_SRCS_C),$(eval $(notdir $(basename $(f))): $(BIN_DIR)/cap4/$(notdir $(basename $(f)))))
+#Caso especial para el listing4-9, C++
+listing4-9: $(BIN_DIR)/cap4/listing4-9
 #cap5-------------------------------------------------------------
 $(foreach f,$(CAP5_SRCS),$(eval $(notdir $(basename $(f))): $(BIN_DIR)/cap5/$(notdir $(basename $(f)))))
