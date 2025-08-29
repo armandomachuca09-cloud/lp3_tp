@@ -126,10 +126,15 @@ clean:
 #cap1--------------------------------------------------------
 # Crear carpeta bin/cap1 si no existe
 $(BIN_DIR)/cap1:
-	mkdir -p $(BIN_DIR)/cap1
+mkdir -p $(BIN_DIR)/cap1
 
 # Compilar el ejecutable cap1/reciprocal
 $(BIN_DIR)/cap1/reciprocal: $(CAP1_DIR)/listing1-1.c $(CAP1_DIR)/listing1-2.cpp | $(BIN_DIR)/cap1
 	$(CXX) -o $@ $^
 #target principal
 listing1-1: $(BIN_DIR)/cap1/reciprocal
+#cap3-------------------------------------------------------------
+$(foreach f,$(CAP3_SRCS),$(eval $(notdir $(basename $(f))): $(BIN_DIR)/cap3/$(notdir $(basename $(f)))))
+
+#cap5-------------------------------------------------------------
+$(foreach f,$(CAP5_SRCS),$(eval $(notdir $(basename $(f))): $(BIN_DIR)/cap5/$(notdir $(basename $(f)))))
