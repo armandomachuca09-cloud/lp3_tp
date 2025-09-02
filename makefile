@@ -19,7 +19,9 @@ all: cap1 cap2  cap3 cap4 cap5
 cap1: $(CAP1_DIR)/listing1-1.c $(CAP1_DIR)/listing1-2.cpp
 	@mkdir -p $(BIN_DIR)/cap1
 	$(CXX) -o $(BIN_DIR)/cap1/reciprocal $(CAP1_DIR)/listing1-1.c $(CAP1_DIR)/listing1-2.cpp
-
+# limpiar el cap1
+clean-cap1:
+	rm -f $(BIN_DIR)/cap1/*
 #compilar cap2---------------------------------------------------------------
 
 # Listados normales (hay kilombo con los listings 2-7, 2-8, 2-9)
@@ -66,7 +68,9 @@ $(BIN_DIR)/cap3/%: $(CAP3_DIR)/%.c | $(BIN_DIR)/cap3
 # Target para crear la carpeta bin/cap3
 $(BIN_DIR)/cap3:
 	mkdir -p $(BIN_DIR)/cap3
-
+#limpiar el cap3
+clean-cap3:
+	rm -f $(BIN_DIR)/cap3/*
 
 #Compilar el cap4----------------------------------------------------------------------------------------
 
